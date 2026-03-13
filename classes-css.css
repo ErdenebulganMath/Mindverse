@@ -1,0 +1,280 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+  font-family:Arial, sans-serif;
+  color: rgb(52, 50, 50);
+}
+
+body{
+  padding-left:250px;
+}
+
+.container{
+  display:flex;
+  height:100vh;
+}
+
+/* Sidebar */
+.sidebar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:250px;
+  height:100%;
+  background:#ffffff;
+  z-index:1000;
+  text-align: left;
+  margin: 0;          /* margin-ийг устгах */
+  padding: 40px 10px 40px 25px;      /* шаардлагатай padding өгнө */
+  box-sizing: border-box;
+  box-shadow: 2px 0 5px -2px rgb(72, 4, 156);
+}
+
+
+.sidebar-logo img {
+  width: 180px;   /* adjust size as needed */
+  height: auto;
+  display: block;
+  margin-bottom: 30px;  /* space below the logo */
+}
+
+.sidebar h2{
+  margin-bottom:30px;
+  font-size: 13px;
+}
+.sidebar ul{
+  list-style:none;
+  margin-bottom:50px;
+}
+
+.sidebar ul li{
+  margin:20px;
+}
+
+/* Sidebar links */
+.sidebar ul li a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 10px 5px;
+  transition: background-color 0.3s, color 0.3s;
+  font-weight: normal;
+}
+
+/* Icon spacing */
+.sidebar ul li a i {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+  transition: all 0.3s ease; /* transition also applies to icon */
+}
+
+/* Hover effect */
+.sidebar ul li a:hover {
+  background-color:  rgb(72, 4, 156);
+  color: #fefefe;          /* text changes color */
+  font-weight: bold;
+  padding: 20px 30px;
+  border-radius: 10px;
+}
+
+.sidebar ul li a:hover i {
+  color:#ffffff;
+}
+
+.sidebar ul li.active > a {
+  background-color:  rgb(72, 4, 156);
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.sidebar ul li.active > a i {
+  color: #000;
+}
+.main {
+  width: 100%;
+}
+
+.class-head {
+  background-color: #4b1bb3;
+  padding: 35px 35px 15px 35px;
+  background: linear-gradient(to right, #5027a9,#8f68e3);
+}
+
+.class-head h1 {
+  color:white;
+  margin-bottom: 15px;
+}
+
+.class-head h2 {
+  color: white;
+  font-size: 15px;
+}
+
+.class-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 10px 35px 10px 0;
+    width: 65%;
+    margin: 20px 20px 20px 0;
+}
+
+
+.class-search input{
+  width: 100%;
+  padding: 10px 40px 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.class-search i{
+  position: absolute;
+  right: 40px;                  /* Distance from right edge */
+  top: 50%;                    /* Vertically center */
+  transform: translateY(-50%);
+  border: none;        /* Button color */
+  padding: 8px 12px;
+  top: 50%;
+  color: #777;
+}
+
+.class-head i {
+  position: absolute;          /* Position relative to container */
+
+}
+
+/* ====== Class cards grid ====== */
+
+.course-container {
+  display: flex;
+  gap: 20px;           /* space between cards */
+  overflow-x: auto;    /* horizontal scroll */
+  padding: 20px 20px 10px 20px;
+  scroll-behavior: smooth; /* smooth scrolling */
+}
+.course-card {
+  background: #c9d9e1;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  max-width: 300px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 20px 20px 0 12px;
+}
+
+.course-image-wrapper {
+  position: relative;
+  border-top-left-radius: 12px;   /* round top-left */
+  border-top-right-radius: 12px;  /* round top-right */
+  border-bottom-left-radius: 0;   /* square bottom-left */
+  border-bottom-right-radius: 0;  /* square bottom-right */
+  overflow: hidden;
+}
+
+/* Add this for the image itself */
+.course-image {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  height: 180px;
+  border-top-left-radius: 12px;   
+  border-top-right-radius: 12px;  
+  border-bottom-left-radius: 0;   
+  border-bottom-right-radius: 0;  
+}
+
+.rating {
+  position: absolute;
+  top:12px;
+  left: 12px;
+  color: #555; /* gold star */
+  font-weight: 600;
+  font-size: 13px;
+  border-radius: 18px;
+  white-space: nowrap;
+  background: #ffc107;
+  padding: 6px 12px;
+}
+
+.price-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #5a3cff;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 18px;
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+
+/* Position tags absolutely inside the image wrapper */
+.course-image-wrapper .tags {
+  position: absolute;
+  bottom: 12px;        /* adjust vertical position */
+  left: 12px;          /* adjust horizontal position */
+  display: flex;
+  gap: 8px;
+  flex-wrap: nowrap;
+  z-index: 10;
+}
+
+.tag {
+  background: rgba(255, 255, 255, 0.85); /* semi-transparent white */
+  color: #333;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  user-select: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+.course-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  padding: 0 12px;
+}
+
+.instructor {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.instructor-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 12px;
+}
+
+.course-info {
+  display: flex;
+  gap: 24px;
+  font-size: 13px;
+  color: #999;
+  font-weight: 500;
+  margin: 0 12px ;
+  padding: 0 0 20px 0;
+}
+
+.course-info span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+

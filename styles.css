@@ -1,0 +1,417 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+  color: rgb(52, 50, 50);
+}
+
+body{
+  padding-left:250px;
+}
+
+.container{
+  display:flex;
+  height:100vh;
+}
+
+/* Sidebar */
+.sidebar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:250px;
+  height:100%;
+  background:#ffffff;
+  z-index:1000;
+  text-align: left;
+  margin: 0;          /* margin-ийг устгах */
+  padding: 40px 10px 40px 25px;      /* шаардлагатай padding өгнө */
+  box-sizing: border-box;
+  box-shadow: 2px 0 5px -2px rgb(72, 4, 156);
+}
+
+
+.sidebar-logo img {
+  width: 180px;   /* adjust size as needed */
+  height: auto;
+  display: block;
+  margin-bottom: 30px;  /* space below the logo */
+}
+
+.sidebar h2{
+  margin-bottom:30px;
+  font-size: 13px;
+}
+.sidebar ul{
+  list-style:none;
+  margin-bottom:50px;
+}
+
+.sidebar ul li{
+  margin:20px;
+}
+
+/* Sidebar links */
+.sidebar ul li a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 10px 5px;
+  transition: background-color 0.3s, color 0.3s;
+  font-weight: normal;
+}
+
+/* Icon spacing */
+.sidebar ul li a i {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+  transition: all 0.3s ease; /* transition also applies to icon */
+}
+
+/* Hover effect */
+.sidebar ul li a:hover {
+  background-color:  rgb(72, 4, 156);
+  color: #fefefe;          /* text changes color */
+  font-weight: bold;
+  padding: 20px 30px;
+  border-radius: 10px;
+}
+
+.sidebar ul li a:hover i {
+  color:#ffffff;
+}
+
+.sidebar ul li.active > a {
+  background-color:  rgb(72, 4, 156);
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.sidebar ul li.active > a i {
+  color: #000;
+}
+
+
+/* Main Content */
+.main-content{
+  flex:1;
+  padding:30px;
+  background:#ecf0f1;
+}
+
+hr{
+  border: none;
+  height: 1px;
+  background: black;
+  margin: 15px 0;
+}
+
+.sidebar ul li a{
+  display:flex;           /* icon болон text нэг эгнээнд байлгах */
+  align-items:center;
+  text-decoration:none;
+  padding-left:5px;
+  transition:0.3s;
+}
+
+.sidebar ul li a i{
+  margin-right:10px;      /* icon ба text хооронд зай */
+  width:20px;             /* icon өргөн тогтвортой байлгах */
+  text-align:center;
+}
+
+.sidebar ul li.logout > a i{
+  color: rgb(72, 4, 156); /* optional, to make it stand out */
+}
+.sidebar ul li.logout > a {
+  color:  rgb(72, 4, 156);
+}
+
+.sidebar ul li.logout a:hover {
+  background-color:  rgb(72, 4, 156);
+  color: #fefefe;          /* text changes color */
+  font-weight: bold;
+  padding: 20px 30px;
+  border-radius: 10px;
+}
+
+.sidebar ul li a:hover i {
+  color:#ffffff;
+}
+
+
+
+
+
+/* General section spacing */
+.main-content section {
+  margin-bottom: 50px;
+}
+
+/* Website info */
+.website-info h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+.website-info p {
+  font-size: 18px;
+  color: #555;
+}
+
+/* Cards container (subjects & exams) */
+.cards-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: nowrap;          /* keep cards in one row */
+  overflow-x: auto;           /* horizontal scroll */
+  overflow-y: hidden;         /* hide vertical scroll */
+  padding-bottom: 10px;       /* space for scrollbar */
+  scroll-behavior: smooth;
+  width: 100%;                /* make container width constrained to parent */
+  box-sizing: border-box;     /* ensure padding/border counted inside width */
+}
+
+/* Scrollbar styling */
+.cards-container::-webkit-scrollbar {
+  height: 8px;                /* horizontal scrollbar height */
+}
+
+.cards-container::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+/* Ensure container doesn't collapse */
+.cards-container .card {
+  flex: 0 0 150px;            /* fixed width */
+  margin-bottom: 0;           /* avoid extra margin that pushes scrollbar */
+}
+
+/* Card style */
+.card {
+  flex: 0 0 100px;             /* fixed width, no shrink */
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 10px;  
+  width: 100%; 
+  height: 130px;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.card h3 {
+  margin: 10px 0 5px 0;
+}
+
+.main-content h2{
+  margin-bottom: 15px;
+}
+
+.card p {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+/* Card hover effect */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* FAQ */
+.faq .faq-item {
+  margin-bottom: 20px;
+  background: #f7f7f7;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+/* Purchase options */
+.purchase-options {
+  display: flex;
+  gap: 20px;
+  flex-wrap: nowrap;
+}
+.option-card {
+  background: #fef9f5;
+  padding: 20px;
+  border-radius: 10px;
+  flex: 1 1 250px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.option-card button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  background: #e67e22;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.option-card button:hover {
+  background: #d35400;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px 0;
+  background: #ba9fb7;
+  color: white;
+  border-top: 1px solid #ccc;
+}
+
+
+
+/* exams */
+/* Exams page */
+
+.exams-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:20px;
+}
+
+.exam-card{
+  background:#fff;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.1);
+  transition:0.3s;
+}
+
+.exam-card:hover{
+  transform:translateY(-5px);
+}
+
+.exam-card h3{
+  margin-bottom:10px;
+}
+
+.exam-card button{
+  margin-top:10px;
+  padding:10px 15px;
+  border:none;
+  background:rgb(72,4,156);
+  color:white;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+.exam-card button:hover{
+  background:#4b1bb3;
+}
+
+
+/* materials */
+/* Materials page */
+
+.materials-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:20px;
+}
+
+.material-card{
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.1);
+  transition:0.3s;
+}
+
+.material-card:hover{
+  transform:translateY(-5px);
+}
+
+.material-card h3{
+  margin-bottom:10px;
+}
+
+.material-card button{
+  margin-top:10px;
+  padding:10px 15px;
+  border:none;
+  background:rgb(72,4,156);
+  color:white;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+/* Classes page */
+
+
+
+/* Profile page */
+
+.profile-container{
+  max-width:500px;
+  background:white;
+  padding:30px;
+  border-radius:10px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+.profile-container img{
+  width:120px;
+  border-radius:50%;
+  margin-bottom:15px;
+}
+
+.profile-container h2{
+  margin-bottom:10px;
+}
+
+.profile-container button{
+  margin-top:15px;
+  padding:10px 20px;
+  border:none;
+  background:rgb(72,4,156);
+  color:white;
+  border-radius:5px;
+}
+
+/* Settings page */
+
+.settings-container{
+  max-width:500px;
+  background:white;
+  padding:30px;
+  border-radius:10px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+.settings-container label{
+  display:block;
+  margin-top:15px;
+  margin-bottom:5px;
+}
+
+.settings-container input{
+  width:100%;
+  padding:10px;
+  border-radius:5px;
+  border:1px solid #ccc;
+}
+
+.settings-container button{
+  margin-top:20px;
+  padding:10px 20px;
+  border:none;
+  background:rgb(72,4,156);
+  color:white;
+  border-radius:5px;
+  cursor:pointer;
+}
