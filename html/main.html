@@ -23,7 +23,6 @@
       <div class="stu-banner-left">
         <div class="stu-banner-tag"><i class="fas fa-graduation-cap"></i> Сурагчийн самбар</div>
         <div class="stu-banner-title">Сайн байна уу, <em id="studentName">Сурагч</em>!</div>
-        <div class="stu-banner-sub" id="studentMeta">Таны хичээлийн ахиц, даалгавар, шалгалт бүгд энд</div>
         <div class="stu-banner-pills">
           <div class="stu-banner-pill">
             <div class="stu-banner-pill-icon"><i class="fas fa-book-open"></i></div>
@@ -53,7 +52,7 @@
       <div class="stu-stat-body">
         <div class="stu-stat-val">4</div>
         <div class="stu-stat-lbl">Миний хичээл</div>
-        <div class="stu-stat-trend neutral"><i class="fas fa-minus"></i> 2026 хичээлийн жил</div>
+        <div class="stu-stat-trend neutral">2026 хичээлийн жил</div>
       </div>
     </div>
     <div class="stu-stat" style="--stat-accent:#10b981">
@@ -61,7 +60,7 @@
       <div class="stu-stat-body">
         <div class="stu-stat-val">3</div>
         <div class="stu-stat-lbl">Өгсөн шалгалт</div>
-        <div class="stu-stat-trend up"><i class="fas fa-arrow-up"></i> +1 энэ долоо хоног</div>
+        <div class="stu-stat-trend up"> +1 энэ долоо хоног</div>
       </div>
     </div>
     <div class="stu-stat" style="--stat-accent:#f59e0b">
@@ -77,7 +76,7 @@
       <div class="stu-stat-body">
         <div class="stu-stat-val">78<span style="font-size:14px;font-weight:600;color:#64748b">%</span></div>
         <div class="stu-stat-lbl">Дундаж оноо</div>
-        <div class="stu-stat-trend up"><i class="fas fa-arrow-up"></i> +4% өнгөрсөн сараас</div>
+        <div class="stu-stat-trend up">+4% өнгөрсөн сараас</div>
       </div>
     </div>
   </div>
@@ -311,21 +310,6 @@
 </div>
 
 <script src="../js/load.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const fn = sessionStorage.getItem('user_firstname') || '';
-  const ln = sessionStorage.getItem('user_lastname')  || '';
-  const gr = sessionStorage.getItem('user_grade')     || '';
-  const sc = sessionStorage.getItem('user_school')    || '';
-  const nameEl = document.getElementById('studentName');
-  const metaEl = document.getElementById('studentMeta');
-  const name = fn || ln;
-  if (nameEl && name) nameEl.textContent = name;
-  if (metaEl && (gr || sc)) {
-    const parts = [gr ? gr + '-р анги' : '', sc].filter(Boolean);
-    metaEl.textContent = parts.join(' · ') + ' · Таны хичээлийн ахиц, даалгавар, шалгалт бүгд энд';
-  }
-});
-</script>
+<script src="../js/main.js"></script>
 </body>
 </html>
