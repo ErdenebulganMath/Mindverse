@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const name = fn || ln;
   if (nameEl && name) nameEl.textContent = name;
   if (metaEl && (gr || sc)) {
-    const parts = [gr ? gr + '-р анги' : '', sc].filter(Boolean);
+    const parts = [gr, sc].filter(Boolean);
     metaEl.textContent = parts.join(' · ') + ' · Таны хичээлийн ахиц, даалгавар, шалгалт бүгд энд';
   }
 });

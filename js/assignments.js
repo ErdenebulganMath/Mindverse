@@ -1,3 +1,12 @@
+const MN_MONTHS_SHORT = ['1-р сар','2-р сар','3-р сар','4-р сар','5-р сар','6-р сар','7-р сар','8-р сар','9-р сар','10-р сар','11-р сар','12-р сар'];
+const MN_DAYS_FULL    = ['Даваа','Мягмар','Лхагва','Пүрэв','Баасан','Бямба','Ням'];
+
+const SCHEDULE_EVENTS = [
+  { date:'2026-04-22', type:'exam', title:'Алгебрийн дундын шалгалт',    subject:'Алгебр',  color:'#3b82f6', time:'10:00', duration:'45 мин' },
+  { date:'2026-04-25', type:'exam', title:'Геометрийн шалгалт',           subject:'Геометр', color:'#10b981', time:'09:00', duration:'30 мин' },
+  { date:'2026-04-30', type:'exam', title:'Физикийн явцын шалгалт',       subject:'Физик',   color:'#8b5cf6', time:'14:00', duration:'40 мин' },
+];
+
 const SUBJECTS = {
   'Алгебр':  {color:'#3b82f6', bg:'#dbeafe', icon:'fa-calculator'},
   'Геометр': {color:'#10b981', bg:'#d1fae5', icon:'fa-shapes'},
@@ -229,19 +238,24 @@ function buildSubjectLegend() {
 
 function buildCalendar() {
   const year = 2026, month = 3;
-  const firstDay = new Date(year, month, 1).getDay();
+  const firstDay    = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month+1, 0).getDate();
-  const today = 19;
+  const today       = 19;
   const deadlineDays = new Set(ASSIGNMENTS.filter(a=>a.status!=='done').map(a=>parseInt(a.due.split('-')[2])));
+  const examDays     = new Set(SCHEDULE_EVENTS.map(e=>parseInt(e.date.split('-')[2])));
+  const pad = n => String(n).padStart(2,'0');
   const dayNames = ['Да','Мя','Лх','Пү','Ба','Бя','Ня'];
   let html = `<div class="cal-days-head">${dayNames.map(d=>`<div class="cal-day-name">${d}</div>`).join('')}</div>`;
   html += '<div class="cal-days">';
   const start = (firstDay + 6) % 7;
   for (let i=0; i<start; i++) html += '<div class="cal-day other-month"></div>';
   for (let d=1; d<=daysInMonth; d++) {
-    const isToday = d===today;
+    const ds      = `${year}-${pad(month+1)}-${pad(d)}`;
+    const isToday = d === today;
     const hasDL   = deadlineDays.has(d);
-    html += `<div class="cal-day ${isToday?'today':''} ${hasDL?'has-deadline':''}">${d}</div>`;
+    const hasExam = examDays.has(d);
+    html += `<div class="cal-day ${isToday?'today':''} ${hasDL?'has-deadline':''} ${hasExam?'has-exam':''}"
+      onclick="openDaySchedule('${ds}')" title="${MN_MONTHS_SHORT[month]} ${d}-ний хуваарь">${d}</div>`;
   }
   html += '</div>';
   document.getElementById('miniCal').innerHTML = html;
@@ -313,7 +327,6 @@ function selectTeacherFile(assignId, fileIdx, el) {
 
   // ── Render preview
   const prev = document.getElementById('avPreviewArea');
-  const bgMap  = {pdf:'#fff', doc:'#f0f9ff', docx:'#f0f9ff', jpg:'#000', jpeg:'#000', png:'#000'};
   const isImage = ['jpg','jpeg','png'].includes(f.type);
 
   if (f._url) {
@@ -458,6 +471,84 @@ function closeAssignmentViewer() {
   // Reset submit button
   const btn = document.getElementById('avSubmitBtn');
   if (btn) { btn.innerHTML = '<i class="fas fa-paper-plane"></i> Илгээх'; btn.style.background = ''; btn.disabled = false; }
+}
+
+/* ════════════════════════════════════════
+   SCHEDULE VIEW (mini-calendar click)
+════════════════════════════════════════ */
+function openDaySchedule(ds) {
+  const date  = new Date(ds + 'T00:00:00');
+  const d     = date.getDate();
+  const m     = MN_MONTHS_SHORT[date.getMonth()];
+  const dow   = MN_DAYS_FULL[(date.getDay() + 6) % 7];
+
+  document.getElementById('schedDateTitle').textContent = `${d} ${m}`;
+  document.getElementById('schedDateSub').textContent   = dow;
+
+  const assigns = ASSIGNMENTS.filter(a => a.due === ds && a.status !== 'done');
+  const exams   = SCHEDULE_EVENTS.filter(e => e.date === ds);
+
+  const all = [
+    ...exams,
+    ...assigns.map(a => ({
+      type:    'assignment',
+      title:   a.title,
+      subject: a.subject,
+      color:   (SUBJECTS[a.subject] || {color:'#3b82f6'}).color,
+      daysLeft: a.daysLeft,
+      urgent:  a.daysLeft <= 3
+    }))
+  ];
+
+  const body = document.getElementById('schedBody');
+  if (!all.length) {
+    body.innerHTML = `<div class="sched-empty">
+      <i class="fas fa-check-circle"></i>
+      <p>Энэ өдөр тэмдэглэгдсэн зүйл байхгүй байна</p>
+    </div>`;
+  } else {
+    body.innerHTML = all.map(ev => {
+      if (ev.type === 'exam') {
+        return `<div class="sched-item">
+          <div class="sched-item-icon" style="background:${ev.color}22;color:${ev.color}">
+            <i class="fas fa-pen-square"></i>
+          </div>
+          <div class="sched-item-body">
+            <div class="sched-item-title">${ev.title}</div>
+            <div class="sched-item-meta">
+              <span style="color:${ev.color}">${ev.subject}</span> &middot; ${ev.time || '—'} &middot; ${ev.duration}
+            </div>
+          </div>
+          <span class="sched-badge exam">📝 Шалгалт</span>
+        </div>`;
+      }
+      const badgeCls = ev.urgent ? 'urgent' : 'assignment';
+      const badgeTxt = ev.urgent ? '🔥 Яаралтай' : '📋 Даалгавар';
+      const dayTxt   = ev.daysLeft <= 0
+        ? '<span style="color:#ef4444;font-weight:700">Хоцорсон</span>'
+        : ev.daysLeft + ' өдөр үлдсэн';
+      return `<div class="sched-item">
+        <div class="sched-item-icon" style="background:${ev.color}22;color:${ev.color}">
+          <i class="fas fa-tasks"></i>
+        </div>
+        <div class="sched-item-body">
+          <div class="sched-item-title">${ev.title}</div>
+          <div class="sched-item-meta">
+            <span style="color:${ev.color}">${ev.subject}</span> &middot; ${dayTxt}
+          </div>
+        </div>
+        <span class="sched-badge ${badgeCls}">${badgeTxt}</span>
+      </div>`;
+    }).join('');
+  }
+
+  document.getElementById('schedModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSchedModal() {
+  document.getElementById('schedModal').classList.remove('show');
+  document.body.style.overflow = '';
 }
 
 /* ── Init ── */
