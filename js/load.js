@@ -31,6 +31,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (nameEl) nameEl.textContent = fullname;
       if (avEl)   avEl.textContent   = fullname.charAt(0).toUpperCase();
+
+      // Load saved profile avatar
+      const avatarKey  = 'avatar_' + (sessionStorage.getItem('user_name') || 'user');
+      const savedAvatar = localStorage.getItem(avatarKey);
+      const sbImgEl = document.querySelector('.sb-bp-img');
+      if (sbImgEl) {
+        sbImgEl.id = 'sbAvatarImg';
+        if (savedAvatar) {
+          sbImgEl.src = savedAvatar;
+          sbImgEl.style.display = '';
+          if (avEl) avEl.style.display = 'none';
+        }
+      }
       if (roleEl) {
         if (role === 'teacher') {
           roleEl.textContent = '🎓 Багш';
